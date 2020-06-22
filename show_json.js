@@ -1,6 +1,6 @@
 window.onload = function loadServers(){
 	var xHttp = new XMLHttpRequest();
-	xHttp.open('GET', 'new_data.json', true);
+	xHttp.open('GET', 'https://covid19manitobaapi.herokuapp.com', true);
 
 	xHttp.onload = function(){
 		if(this.status == 200)
