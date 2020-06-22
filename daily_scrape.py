@@ -51,7 +51,7 @@ def scraping_data(soup):
                                         elif(match.group(1) == "as"):
                                             cases.append(0)
                                         else:
-                                            cases.append(match.group(1))
+                                            cases.append(w2n.word_to_num(match.group(1)))
                                     else:
                                         cases.append(0)
                                     for date in dates:
