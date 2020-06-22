@@ -6,6 +6,9 @@ from bs4 import BeautifulSoup
 from word2number import w2n
 from configparser import ConfigParser
 
+cases = []
+date_text = []
+
 def scraping_data(soup):
     td = soup.findAll('td')
     for row in reversed(td):
@@ -29,36 +32,44 @@ def scraping_data(soup):
                         rematch = re.search(r'(\S+) new', announcement)
                         additional_case = re.search(
                             r'(\S+) additional case', announcement)
+                        weekend_case = re.search(r'over the weekend and (\S+)', announcement)
 
                         if(that_case):
-                            cases = w2n.word_to_num(that_case.group(1))
+                            cases.append(w2n.word_to_num(that_case.group(1)))
                             for date in dates:
-                                date_text = date.text
+                                date_text.append(date.text)
+                        # if(weekend_case):
+                        #     cases = w2n.word_to_num(weekend_case.group(1))
+                        #     for date in dates:
+                        #         date_text.append(date.text)
                         else:
                             if match:
                                 if(match.group(1) != "there"):
                                     if(match.group(1) != "no"):
                                         if(match.group(1) == "an"):
-                                            cases = 1
+                                            cases.append(1)
                                         elif(match.group(1) == "as"):
-                                            cases = 0
+                                            cases.append(0)
                                         else:
-                                            cases = (match.group(1))
+                                            cases.append(match.group(1))
                                     else:
-                                        cases = 0
+                                        cases.append(0)
                                     for date in dates:
-                                        date_text = date.text
+                                        date_text.append(date.text)
                                 else:
                                     if additional_case:
-                                        cases = w2n.word_to_num(additional_case.group(1))
+                                        cases.append(w2n.word_to_num(additional_case.group(1)))
                                     else:
                                         if(rematch.group(1) != "no"):
-                                            cases = w2n.word_to_num(rematch.group(1))
+                                            cases.append(w2n.word_to_num(rematch.group(1)))
                                         else:
-                                        	cases = 0
+                                        	cases.append(0)
                                     for date in dates:
-                                        date_text = date.text
-    return date_text, cases
+                                        date_text.append(date.text)
+                            if(weekend_case):
+                                cases.append(w2n.word_to_num(weekend_case.group(1)))
+                                for date in dates:
+                                    date_text.append(date.text)
 
 def config(filename='database.ini', section='postgresql'):
     # create a parser
@@ -137,7 +148,9 @@ def main():
     soup = BeautifulSoup(response.text, 'html.parser')
 
     connect()
-    date, cases = scraping_data(soup)
-    insert_new_case(date,cases)
+    scraping_data(soup)
+
+    for i in range(len(date_text)):
+        insert_new_case(date_text[i], cases[i])
 
 main()
