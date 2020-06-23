@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Covid19 - Report</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+ 		<h1>Covid19 - Daily Reported Cases In Manitoba</h1>
+		<div class="container">
+			<table id ="table" class="table table-light-dark table-striped">
+				<thead>
+					<tr>
+						<th data-sort="id">ID</th>
+						<th data-sort="date">Date</th>
+						<th data-sort="cases">Number of Reported Cases</th>
+					</tr>
+				</thead>
+				<tbody id = "sortable"></tbody>
+			</table>
+		</div>
+		<div class="footer">
+			<p>Copyright 2020 by Quoc Le.</p>
+		</div>
+		<script src="show_json.js"></script>
+	</body>
+</html>

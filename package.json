@@ -1,0 +1,26 @@
+{
+  "name": "covid19_scraping_data",
+  "version": "1.0.0",
+  "description": "",
+  "main": "show_json.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jojododoe1212/covid19_scraping_data.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jojododoe1212/covid19_scraping_data/issues"
+  },
+  "homepage": "https://github.com/jojododoe1212/covid19_scraping_data#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "pg": "^8.2.1"
+  }
+}
