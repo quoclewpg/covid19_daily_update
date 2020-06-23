@@ -38,10 +38,6 @@ def scraping_data(soup):
                             cases.append(w2n.word_to_num(that_case.group(1)))
                             for date in dates:
                                 date_text.append(date.text)
-                        # if(weekend_case):
-                        #     cases = w2n.word_to_num(weekend_case.group(1))
-                        #     for date in dates:
-                        #         date_text.append(date.text)
                         else:
                             if match:
                                 if(match.group(1) != "there"):
