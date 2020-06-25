@@ -14,8 +14,8 @@ def scraping_data(soup):
     for row in reversed(td):
         for link in row.findAll('a'):
             covid_bulletin_news = link.string
-            bulletin_number = covid_bulletin_news[19:22]
             if("COVID-19 Bulletin" in covid_bulletin_news):
+                bulletin_number = covid_bulletin_news[19:22]
                 if(int(bulletin_number) > 114):
                     covid_news = link.get('href')
                     covid_news_link = requests.get(covid_news)
