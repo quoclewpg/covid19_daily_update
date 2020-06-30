@@ -89,7 +89,7 @@ def scraping_data(soup):
                                     if(weekend_extra_check_case_2.group(1) == "an"):
                                         cases.append(1)
                                     else:
-                                        cases.append((weekend_extra_check_case_2.group(1)))
+                                        cases.append(w2n.word_to_num(weekend_extra_check_case_2.group(1)))
                                 else:
                                     cases.append(0)
                                 for date in dates:
