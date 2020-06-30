@@ -33,6 +33,8 @@ def scraping_data(soup):
                         additional_case = re.search(
                             r'(\S+) additional case', announcement)
                         weekend_case = re.search(r'over the weekend and (\S+)', announcement)
+                        weekend_extra_check_case = re.search(r'(\S+) new case of COVID-19 was identified as of 9:30 a.m. today', announcement)
+                        weekend_extra_check_case_2 = re.search(r'(\S+) new cases of COVID-19 were identified as of 9:30 a.m. today', announcement)
 
                         if(that_case):
                             cases.append(w2n.word_to_num(that_case.group(1)))
@@ -63,7 +65,33 @@ def scraping_data(soup):
                                     for date in dates:
                                         date_text.append(date.text)
                             if(weekend_case):
-                                cases.append(w2n.word_to_num(weekend_case.group(1)))
+                                if(weekend_case.group(1) != "no"):
+                                    if(weekend_case.group(1) == "an"):
+                                        cases.append(1)
+                                    else:
+                                        cases.append(w2n.word_to_num(weekend_case.group(1)))
+                                else:
+                                    cases.append(0)
+                                for date in dates:
+                                    date_text.append(date.text)
+                            elif(weekend_extra_check_case):
+                                if(weekend_extra_check_case.group(1) != "no"):
+                                    if(weekend_extra_check_case.group(1) == "an"):
+                                        cases.append(1)
+                                    else:
+                                        cases.append(w2n.word_to_num(weekend_extra_check_case.group(1)))
+                                else:
+                                    cases.append(0)
+                                for date in dates:
+                                    date_text.append(date.text)
+                            elif(weekend_extra_check_case_2):
+                                if(weekend_extra_check_case_2.group(1) != "no"):
+                                    if(weekend_extra_check_case_2.group(1) == "an"):
+                                        cases.append(1)
+                                    else:
+                                        cases.append((weekend_extra_check_case_2.group(1)))
+                                else:
+                                    cases.append(0)
                                 for date in dates:
                                     date_text.append(date.text)
 
