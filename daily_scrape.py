@@ -28,7 +28,7 @@ def scraping_data(soup):
                         match = re.search(
                             r'Public health officials advise (\S+)', announcement)
                         new_match = re.search(
-                            r'(\S+) new cases of Covid-19 have been identified as of 9:30 a.m today', announcement)
+                            r'(\S+) new cases of COVID-19 have been identified as of 9:30 a.m today', announcement)
                         that_case = re.search(
                             r'Public health officials advise that(\S+)', announcement)
                         rematch = re.search(r'(\S+) new', announcement)
