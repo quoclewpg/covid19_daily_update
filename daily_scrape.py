@@ -25,20 +25,20 @@ def scraping_data(soup):
                         announcement = paragraph.div.text
                         dates = paragraph.findAll(
                             'span', attrs={'class': 'article_date'})
-                        match = re.search(
-                            r'Public health officials advise (\S+)', announcement)
+                        # match = re.search(
+                        #     r'Public health officials advise (\S+)', announcement)
                         new_matches = re.search(
                             r'(\S+) new cases of COVID-19 have been identified as of 9:30 a.m. today', announcement)
                         new_match = re.search(
                             r'(\S+) new case of COVID-19 has been identified as of 9:30 a.m. today', announcement)
-                        that_case = re.search(
-                            r'Public health officials advise that(\S+)', announcement)
-                        rematch = re.search(r'(\S+) new', announcement)
-                        additional_case = re.search(
-                            r'(\S+) additional case', announcement)
-                        weekend_case = re.search(r'over the weekend and (\S+)', announcement)
-                        weekend_extra_check_case = re.search(r'(\S+) new case of COVID-19 was identified as of 9:30 a.m. today', announcement)
-                        weekend_extra_check_case_2 = re.search(r'(\S+) new cases of COVID-19 were identified as of 9:30 a.m. today', announcement)
+                        # that_case = re.search(
+                        #     r'Public health officials advise that(\S+)', announcement)
+                        # rematch = re.search(r'(\S+) new', announcement)
+                        # additional_case = re.search(
+                        #     r'(\S+) additional case', announcement)
+                        # weekend_case = re.search(r'over the weekend and (\S+)', announcement)
+                        weekend_extra_one_case = re.search(r'(\S+) new cases of COVID-19 have been identified over the weekend as of 9:30 a.m. today', announcement)
+                        weekend_extra_cases = re.search(r'(\S+) new case of COVID-19 has been identified over the weekend as of 9:30 a.m. today', announcement)
 
                         # if(that_case):
                         #     cases.append(w2n.word_to_num(that_case.group(1)))
@@ -89,6 +89,32 @@ def scraping_data(soup):
                                         cases.append(0)
                                     else:
                                         cases.append(w2n.word_to_num(new_matches.group(1)))
+                                else:
+                                    cases.append(0)
+                                for date in dates:
+                                    date_text.append(date.text)
+                        if weekend_extra_one_case:
+                            if(weekend_extra_one_case.group(1) != "there"):
+                                if(weekend_extra_one_case.group(1) != "no"):
+                                    if(weekend_extra_one_case.group(1) == "an"):
+                                        cases.append(1)
+                                    elif(weekend_extra_one_case.group(1) == "as"):
+                                        cases.append(0)
+                                    else:
+                                        cases.append(w2n.word_to_num(weekend_extra_one_case.group(1)))
+                                else:
+                                    cases.append(0)
+                                for date in dates:
+                                    date_text.append(date.text)
+                        if weekend_extra_cases:
+                            if(weekend_extra_cases.group(1) != "there"):
+                                if(weekend_extra_cases.group(1) != "no"):
+                                    if(weekend_extra_cases.group(1) == "an"):
+                                        cases.append(1)
+                                    elif(weekend_extra_cases.group(1) == "as"):
+                                        cases.append(0)
+                                    else:
+                                        cases.append(w2n.word_to_num(weekend_extra_cases.group(1)))
                                 else:
                                     cases.append(0)
                                 for date in dates:
