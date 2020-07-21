@@ -27,8 +27,10 @@ def scraping_data(soup):
                             'span', attrs={'class': 'article_date'})
                         match = re.search(
                             r'Public health officials advise (\S+)', announcement)
+                        new_matches = re.search(
+                            r'(\S+) new cases of COVID-19 have been identified as of 9:30 a.m. today', announcement)
                         new_match = re.search(
-                            r'(\S+) new cases of COVID-19 have been identified as of 9:30 a.m today', announcement)
+                            r'(\S+) new case of COVID-19 has been identified as of 9:30 a.m. today', announcement)
                         that_case = re.search(
                             r'Public health officials advise that(\S+)', announcement)
                         rematch = re.search(r'(\S+) new', announcement)
@@ -74,6 +76,19 @@ def scraping_data(soup):
                                         cases.append(0)
                                     else:
                                         cases.append(w2n.word_to_num(new_match.group(1)))
+                                else:
+                                    cases.append(0)
+                                for date in dates:
+                                    date_text.append(date.text)
+                        if new_matches:
+                            if(new_matches.group(1) != "there"):
+                                if(new_matches.group(1) != "no"):
+                                    if(new_matches.group(1) == "an"):
+                                        cases.append(1)
+                                    elif(new_matches.group(1) == "as"):
+                                        cases.append(0)
+                                    else:
+                                        cases.append(w2n.word_to_num(new_matches.group(1)))
                                 else:
                                     cases.append(0)
                                 for date in dates:
