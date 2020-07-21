@@ -42,73 +42,72 @@ def scraping_data(soup):
                             cases.append(w2n.word_to_num(that_case.group(1)))
                             for date in dates:
                                 date_text.append(date.text)
-                        else:
-                            if match:
-                                if(match.group(1) != "there"):
-                                    if(match.group(1) != "no"):
-                                        if(match.group(1) == "an"):
-                                            cases.append(1)
-                                        elif(match.group(1) == "as"):
-                                            cases.append(0)
-                                        else:
-                                            cases.append(w2n.word_to_num(match.group(1)))
-                                    else:
+                        if match:
+                            if(match.group(1) != "there"):
+                                if(match.group(1) != "no"):
+                                    if(match.group(1) == "an"):
+                                        cases.append(1)
+                                    elif(match.group(1) == "as"):
                                         cases.append(0)
-                                    for date in dates:
-                                        date_text.append(date.text)
+                                    else:
+                                        cases.append(w2n.word_to_num(match.group(1)))
                                 else:
-                                    if additional_case:
-                                        cases.append(w2n.word_to_num(additional_case.group(1)))
+                                    cases.append(0)
+                                for date in dates:
+                                    date_text.append(date.text)
+                            else:
+                                if additional_case:
+                                    cases.append(w2n.word_to_num(additional_case.group(1)))
+                                else:
+                                    if(rematch.group(1) != "no"):
+                                        cases.append(w2n.word_to_num(rematch.group(1)))
                                     else:
-                                        if(rematch.group(1) != "no"):
-                                            cases.append(w2n.word_to_num(rematch.group(1)))
-                                        else:
-                                        	cases.append(0)
-                                    for date in dates:
-                                        date_text.append(date.text)
-                            if new_match:
-                                if(new_match.group(1) != "there"):
-                                    if(new_match.group(1) != "no"):
-                                        if(new_match.group(1) == "an"):
-                                            cases.append(1)
-                                        elif(new_match.group(1) == "as"):
-                                            cases.append(0)
-                                        else:
-                                            cases.append(w2n.word_to_num(new_match.group(1)))
-                                    else:
+                                    	cases.append(0)
+                                for date in dates:
+                                    date_text.append(date.text)
+                        if new_match:
+                            if(new_match.group(1) != "there"):
+                                if(new_match.group(1) != "no"):
+                                    if(new_match.group(1) == "an"):
+                                        cases.append(1)
+                                    elif(new_match.group(1) == "as"):
                                         cases.append(0)
-                                    for date in dates:
-                                        date_text.append(date.text)
-                            if(weekend_case):
-                                if(weekend_case.group(1) != "no"):
-                                    if(weekend_case.group(1) == "an"):
-                                        cases.append(1)
                                     else:
-                                        cases.append(w2n.word_to_num(weekend_case.group(1)))
+                                        cases.append(w2n.word_to_num(new_match.group(1)))
                                 else:
                                     cases.append(0)
                                 for date in dates:
                                     date_text.append(date.text)
-                            elif(weekend_extra_check_case):
-                                if(weekend_extra_check_case.group(1) != "no"):
-                                    if(weekend_extra_check_case.group(1) == "an"):
-                                        cases.append(1)
-                                    else:
-                                        cases.append(w2n.word_to_num(weekend_extra_check_case.group(1)))
+                        if(weekend_case):
+                            if(weekend_case.group(1) != "no"):
+                                if(weekend_case.group(1) == "an"):
+                                    cases.append(1)
                                 else:
-                                    cases.append(0)
-                                for date in dates:
-                                    date_text.append(date.text)
-                            elif(weekend_extra_check_case_2):
-                                if(weekend_extra_check_case_2.group(1) != "no"):
-                                    if(weekend_extra_check_case_2.group(1) == "an"):
-                                        cases.append(1)
-                                    else:
-                                        cases.append(w2n.word_to_num(weekend_extra_check_case_2.group(1)))
+                                    cases.append(w2n.word_to_num(weekend_case.group(1)))
+                            else:
+                                cases.append(0)
+                            for date in dates:
+                                date_text.append(date.text)
+                        if(weekend_extra_check_case):
+                            if(weekend_extra_check_case.group(1) != "no"):
+                                if(weekend_extra_check_case.group(1) == "an"):
+                                    cases.append(1)
                                 else:
-                                    cases.append(0)
-                                for date in dates:
-                                    date_text.append(date.text)
+                                    cases.append(w2n.word_to_num(weekend_extra_check_case.group(1)))
+                            else:
+                                cases.append(0)
+                            for date in dates:
+                                date_text.append(date.text)
+                        if(weekend_extra_check_case_2):
+                            if(weekend_extra_check_case_2.group(1) != "no"):
+                                if(weekend_extra_check_case_2.group(1) == "an"):
+                                    cases.append(1)
+                                else:
+                                    cases.append(w2n.word_to_num(weekend_extra_check_case_2.group(1)))
+                            else:
+                                cases.append(0)
+                            for date in dates:
+                                date_text.append(date.text)
 
 def config(filename='database.ini', section='postgresql'):
     # create a parser
