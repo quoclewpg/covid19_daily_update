@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/jojododoe1212/covid19_scraping_data#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "nodemon": "^2.0.4",
     "pg": "^8.2.1"
   }
